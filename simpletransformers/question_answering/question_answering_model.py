@@ -1477,7 +1477,7 @@ class QuestionAnsweringModel:
             return max(scores_for_ground_truths)
 
 
-        def evaluate(paragraphs, predictions):
+        def eval_metrics(paragraphs, predictions):
             f1 = exact_match = total = jaccard = 0
             for paragraph in paragraphs:
                 for qa in paragraph["qas"]:
@@ -1542,7 +1542,7 @@ class QuestionAnsweringModel:
                 }
 
         extra_metrics = {}
-        extra_metrics.update(evaluate(truth, predictions))
+        extra_metrics.update(eval_metrics(truth, predictions))
         for metric, func in kwargs.items():
             extra_metrics[metric] = func(true_answers, predicted_answers)
 
@@ -1621,6 +1621,9 @@ class QuestionAnsweringModel:
             "incorrect": [],
             "train_loss": [],
             "eval_loss": [],
+            'jaccard': [],
+            'f1': [],
+            'exact_match': [],
             **extra_metrics,
         }
 
