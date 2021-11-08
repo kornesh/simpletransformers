@@ -574,6 +574,8 @@ class QuestionAnsweringModel:
                 optimizer_grouped_parameters,
                 lr=args.learning_rate,
                 eps=args.adam_epsilon,
+                betas=(args.adam_beta1, args.adam_beta2),
+                weight_decay=args.weight_decay
             )
         elif args.optimizer == "Adafactor":
             optimizer = Adafactor(
