@@ -121,7 +121,7 @@ logger = logging.getLogger(__name__)
 
 class QuestionAnsweringModel:
     def __init__(
-        self, model_type, model_name, args=None, use_cuda=True, cuda_device=-1, **kwargs
+        self, model_type, model_name, dataset_name, args=None, use_cuda=True, cuda_device=-1, **kwargs
     ):
 
         """
@@ -135,6 +135,8 @@ class QuestionAnsweringModel:
             use_cuda (optional): Use GPU if available. Setting to False will force model to use CPU only.
             cuda_device (optional): Specific GPU that should be used. Will use the first available GPU by default.
         """  # noqa: ignore flake8"
+
+        self.dataset_name = dataset_name
 
         MODEL_CLASSES = {
             "albert": (AlbertConfig, AlbertForQuestionAnswering, AlbertTokenizer),
@@ -192,6 +194,9 @@ class QuestionAnsweringModel:
             self.args.update_from_dict(sweep_values)
         else:
             self.is_sweeping = False
+
+        if "is_sweeping" in kwargs:
+            self.is_sweeping = kwargs.pop("is_sweeping")
 
         if self.args.manual_seed:
             random.seed(self.args.manual_seed)
@@ -296,8 +301,8 @@ class QuestionAnsweringModel:
         mode = "dev" if evaluate else "train"
         cached_features_file = os.path.join(
             args.cache_dir,
-            "cached_{}_{}_{}_{}".format(
-                mode, args.model_type, args.max_seq_length, len(examples)
+            "cached_{}_{}_{}_{}_{}".format(
+                self.dataset_name, mode, args.model_type, args.max_seq_length, len(examples)
             ),
         )
 
