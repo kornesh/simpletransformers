@@ -1490,7 +1490,7 @@ class QuestionAnsweringModel:
 
             return {"jaccard": jaccard, "exact_match": exact_match, "f1": f1}
 
-        print(evaluate(truth, predictions))
+        
         truth_dict = {}
         questions_dict = {}
         for item in truth:
@@ -1535,6 +1535,7 @@ class QuestionAnsweringModel:
                 }
 
         extra_metrics = {}
+        extra_metrics.update(evaluate(truth, predictions))
         for metric, func in kwargs.items():
             extra_metrics[metric] = func(true_answers, predicted_answers)
 
