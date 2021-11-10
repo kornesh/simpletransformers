@@ -202,7 +202,7 @@ class QuestionAnsweringArgs(ModelArgs):
     """
 
     model_class: str = "QuestionAnsweringModel"
-    doc_stride: int = 384
+    doc_stride: int = 384 # This is probably a bug!
     early_stopping_metric: str = "correct"
     early_stopping_metric_minimize: bool = False
     lazy_loading: bool = False
@@ -211,6 +211,7 @@ class QuestionAnsweringArgs(ModelArgs):
     n_best_size: int = 20
     null_score_diff_threshold: float = 0.0
     special_tokens_list: list = field(default_factory=list)
+    version_2_with_negative = False
 
 
 @dataclass

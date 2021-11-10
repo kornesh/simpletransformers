@@ -1255,7 +1255,7 @@ class QuestionAnsweringModel:
                 eval_data,
                 model.config.start_n_top,
                 model.config.end_n_top,
-                True,
+                args.version_2_with_negative,
                 tokenizer,
                 verbose_logging,
             )
@@ -1271,7 +1271,7 @@ class QuestionAnsweringModel:
                 output_nbest_file,
                 output_null_log_odds_file,
                 verbose_logging,
-                True,
+                args.version_2_with_negative,
                 args.null_score_diff_threshold,
             )
 
@@ -1391,7 +1391,7 @@ class QuestionAnsweringModel:
                 args.max_answer_length,
                 model.config.start_n_top,
                 model.config.end_n_top,
-                True,
+                args.version_2_with_negative,
                 tokenizer,
                 args.null_score_diff_threshold,
             )
@@ -1404,7 +1404,7 @@ class QuestionAnsweringModel:
                 args.max_answer_length,
                 False,
                 False,
-                True,
+                args.version_2_with_negative,
                 False,
             )
 
